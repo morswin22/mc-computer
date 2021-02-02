@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IDE</title>
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+  <main>
+    <section class="options">
+      <label>
+        <span>Select language:</span>
+        <select id="language">
+          <option value="L">Low-level</option>
+          <option value="H">High-level</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="code">
+      <textarea id="code"></textarea>
+    </section>
+
+    <section class="control">
+      <button id="reset">Reset</button>
+      <button id="run">Run</button>
+      <button id="step">Step</button>
+      <button id="next">Next</button>
+    </section>
+  </main>
+  
+  <aside>
+    <section class="memory">
+      <h1>Memory dump</h1>
+      <div id="memory">
+        <!-- Auto-Generated -->
+      </div>
+    </section>
+    <section class="console">
+      <h1>Console</h1>
+      <div id="iconsole">
+        <!-- Auto-Generated -->
+      </div>
+    </section>
+  </aside>
+
+</body>
+</html>
