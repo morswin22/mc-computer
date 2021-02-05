@@ -4,6 +4,46 @@ const cout = message => {
   el.innerText = message;
   iconsole.appendChild(el);
 };
+const cerr = message => {
+  const el = document.createElement('div');
+  el.innerText = message;
+  el.classList.add('error');
+  iconsole.appendChild(el);
+};
+
+const setupMemoryOutput = (scalarsN, vectorsN, vectorsNames) => {
+  const scalars = document.createElement('fieldset');
+  scalars.classList.add('scalars');
+  const scalarsLegend = document.createElement('legend');
+  scalarsLegend.innerText = 'Registers';
+  scalars.appendChild(scalarsLegend);
+
+  const scalarElements = [];
+  for (let i = 0; i < scalarsN; i++) {
+    const element = document.createElement('div');
+    scalarElements.push(element);
+    scalars.appendChild(element);
+  }
+
+  const vectors = document.createElement('div');
+  vectors.classList.add('vectors');
+
+  const vectorElements = [];
+  for (let i = 0; i < vectorsN; i++) {
+    const vectorFieldset = document.createElement('fieldset');
+    const vectorLegend = document.createElement('legend');
+    const element = document.createElement('table');
+    vectorLegend.innerText = vectorsNames[i];
+    vectorFieldset.append(vectorLegend, element);
+    vectorElements.push(element);
+    vectors.appendChild(vectorFieldset);
+  }
+
+  memory.innerHTML = '';
+  memory.append(scalars, vectors);
+
+  return {scalars: scalarElements, vectors: vectorElements}
+}
 
 const getLowLevelMachine = () => {
   let a = 0, d = 0;
@@ -25,6 +65,7 @@ const getLowLevelMachine = () => {
   const validOpcodes = ["X", "Y", "X&Y", "X|Y", "~X", "~Y", "X+Y", "X-Y", "Y-X", "0", "-1", "1", "-X", "-Y", "X+1", "Y+1", "X-1", "Y-1"];
 
   const execute = (i, line) => {
+    if (!line) return i + 1;
     if (dataRegex.test(line)) {
       const [, sign, number] = dataRegex.exec(line);
       const value = parseInt(`${sign}${number}`);
@@ -58,18 +99,20 @@ const getLowLevelMachine = () => {
     return i + 1;
   }
 
-  const aOut = document.createElement('div');
-  const dOut = document.createElement('div');
-  const mOut = document.createElement('div');
-  memory.innerHTML = '';
-  memory.append(aOut, dOut, mOut);
+  const {scalars: [aOut, dOut], vectors: [mOut]} = setupMemoryOutput(2, 1, ['Memory']);
 
   const updateMemory = () => {
-    aOut.innerText = `A = ${a}`;
-    dOut.innerText = `D = ${d}`;
-    mOut.innerHTML = '<hr>RAM:<br>';
+    aOut.innerText = `A → ${a}`;
+    dOut.innerText = `D → ${d}`;
+    mOut.innerHTML = '';
     for (let i in m) {
-      mOut.innerHTML += `${(i==a) ? '>' : '&nbsp;'}[${i}] ${m[i]}<br>`;
+      const row = document.createElement('tr');
+      const index = document.createElement('td');
+      index.innerText = i;
+      const value = document.createElement('td');
+      value.innerText = `${i == a ? '☛' : '→'} ${m[i]}`;
+      row.append(index, value);
+      mOut.appendChild(row);
     }
   }
 
@@ -86,7 +129,7 @@ const getHighLevelMachine = () => {
 const machines = {L: getLowLevelMachine, H: getHighLevelMachine};
 
 const execute = () => {
-  const lines = code.value.toUpperCase().split('\n').map(line => line.trim()).filter(line=>line);
+  const lines = code.getValue().toUpperCase().split('\n').map(line => line.trim());
   const maxLoop = lines.length + 20;
   if (lines.length) {
     cclear();
@@ -98,7 +141,7 @@ const execute = () => {
       machine.updateMemory();
       j++;
       if (j === maxLoop) {
-        console.error('Max loop!');
+        cerr('Max loop!');
         break;
       }
     }
@@ -106,5 +149,4 @@ const execute = () => {
 };
 
 run.addEventListener("click", execute);
-
-code.value = "@2\nM = 1; out\nM = D + M; out\nD = M - D; >";
+run.click();

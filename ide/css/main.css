@@ -1,3 +1,7 @@
+* {
+  font-family: Consolas, "Courier New", monospace;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -5,20 +9,73 @@ html, body {
 }
 
 body {
-  width: 80vw;
-  margin: 0 auto;
+  width: 100vw;
+  height: 100vh;
   display: grid;
-  grid-template-areas: 
-  "main aside";
+  grid-template-areas: "main aside";
   grid-template-columns: 2fr 1fr;
+  background-color: #090b10;
 }
 
 main {
   grid-area: main;
   font-size: 1.8rem;
+  padding: 5%;
+  display: grid;
+  grid-template-rows: 5rem auto 5rem;
+}
+
+main section:first-child,
+main section:last-child {
+  justify-self: center;
+  align-self: center;
+  color: #f0f0f0;
+}
+
+main button, 
+main select {
+  cursor: pointer;
+  color: #f0f0f0;
+  background-color: #090b10;
+  border: none;
+}
+
+main .code > div {
+  height: 100%;
 }
 
 aside {
   grid-area: aside;
   font-size: 1.5rem;
+  color: #f0f0f0;
+  padding: 10%;
+}
+
+aside fieldset {
+  border-color: #2d324a;
+}
+
+aside h1 {
+  font-weight: normal;
+}
+
+#memory > * {
+  margin: 3rem 0;
+}
+
+#memory > *:first-child {
+  margin: 0 0 3rem 0;
+}
+
+#memory > *:last-child {
+  margin: 3rem 0 0 0;
+}
+
+#memory .vectors td:nth-child(1) {
+  text-align: right;
+  padding-right: 0.5rem;
+}
+
+#iconsole .error {
+  color: red;
 }

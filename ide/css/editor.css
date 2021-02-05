@@ -1,0 +1,55 @@
+.cm-s-low-level.CodeMirror {
+	background: #0f111a;
+	color: #a6accda8;
+}
+
+.cm-s-low-level div.CodeMirror-selected {
+	background: #2d324a;
+}
+
+.cm-s-low-level .CodeMirror-line::selection,
+.cm-s-low-level .CodeMirror-line>span::selection,
+.cm-s-low-level .CodeMirror-line>span>span::selection,
+.cm-s-low-level .CodeMirror-line::-moz-selection,
+.cm-s-low-level .CodeMirror-line>span::-moz-selection,
+.cm-s-low-level .CodeMirror-line>span>span::-moz-selection {
+	background: rgba(113, 124, 180, 0.16);
+}
+
+.cm-s-low-level .CodeMirror-gutters {
+	background: #0f111a;
+  border-right: 0;
+}
+
+.cm-s-low-level .CodeMirror-linenumber {
+	color: #4b526d;
+}
+
+.cm-s-low-level .CodeMirror-cursor {
+	border-left: 2px solid #ffcc00;
+}
+
+.cm-s-low-level span.cm-comment {
+  color: #464b5d;
+  font-style: italic;
+}
+
+.cm-s-low-level span.cm-atom {
+	color: #ff9cac;
+}
+
+.cm-s-low-level span.cm-operator {
+  color: #89ddff;
+}
+
+.cm-s-low-level span.cm-number {
+	color: #f78c6c;
+}
+
+.cm-s-low-level span.cm-variable {
+  color: #a6accd;
+}
+
+.cm-s-low-level .CodeMirror-activeline-background {
+	background: #07080c;
+}
