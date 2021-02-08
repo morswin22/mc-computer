@@ -1,19 +1,20 @@
 const machines = {L: getLowLevelMachine, H: getHighLevelMachine};
+let currentMachine;
 
 const execute = () => {
   const lines = code.getValue().toUpperCase().split('\n').map(line => line.trim());
   const maxLoop = lines.length + 20;
   if (lines.length) {
     cclear();
-    const machine = machines[language.value]();
+    currentMachine = machines[language.value]();
     let i = 0, j = 0;
     while (i < lines.length) {
       const line = lines[i];
-      i = machine.execute(i, line);
-      machine.updateMemory();
+      i = currentMachine.execute(i, line);
+      currentMachine.updateMemory();
       j++;
       if (j === maxLoop) {
-        cerr('Max loop!');
+        cerr('Infinite loop protection', 'Runtime');
         break;
       }
     }

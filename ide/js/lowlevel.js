@@ -3,7 +3,7 @@ const getLowLevelMachine = () => {
   const m = Array(2**4).fill(0);
 
   const dataRegex = /@ *(-?)(\d+)/;
-  const operationRegex = /([ADM, ]*=[ADM, &\|~01+\-]+)?;? *([!><]?=?)?;? *(OUT)?/;
+  const operationRegex = /([ADM, ]*=[ADM, &\|~01+\-]+)?;? *([!><]?=?)?;? *(OUT|IN|SWAP)?/;
 
   const jumpRules = {
     "!": () => null,
@@ -37,7 +37,7 @@ const getLowLevelMachine = () => {
           eval(`operationResult = ${opcode}`);
         }
 
-        if (out) cout(operationResult);
+        if (out && out === 'OUT') cout(operationResult, i == -1 ? '⮨' : `Line ${i}`);
 
         if (left.indexOf('M') != -1) m[a] = operationResult;
         if (left.indexOf('A') != -1) a = operationResult;

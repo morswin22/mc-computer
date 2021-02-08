@@ -15,6 +15,7 @@ body {
   grid-template-areas: "main aside";
   grid-template-columns: 2fr 1fr;
   background-color: #090b10;
+  overflow-x: hidden;
 }
 
 main {
@@ -76,6 +77,43 @@ aside h1 {
   padding-right: 0.5rem;
 }
 
+.console h1 {
+  margin: 3rem 0 0 0;
+  padding: 0.8rem;
+  border: 1px solid #2d324a;
+}
+
 #iconsole .error {
   color: red;
+}
+
+#iconsole > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.3rem 0.5rem 0.3rem 0.8rem;
+  border-left: 1px solid #2d324a;
+  border-right: 1px solid #2d324a;
+}
+
+#iconsole > div:nth-child(2n+1) {
+  background-color: #0B0D13;
+}
+
+#iconsole > div > span:last-child {
+  font-size: 1.2rem;
+} 
+
+#iconsoleinput {
+  display: block;
+  background-color: #0f111a;
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  border: 1px solid #2d324a;
+  box-sizing: border-box;
+  color: #f0f0f0;
+  font-size: 1.5rem;
+  padding: 0.3rem 0.5rem 0.3rem 0.5rem;
 }
