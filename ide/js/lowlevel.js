@@ -2,8 +2,11 @@ const getLowLevelMachine = () => {
   let a = 0, d = 0;
   const m = Array(2**4).fill(0);
 
-  const dataRegex = /@ *(-?)(\d+)/;
-  const operationRegex = /([ADM, ]*=[ADM, &\|~01+\-]+)?;? *([!><]?=?)?;? *(OUT|IN|SWAP)?/;
+  const whitespace = ' ,;'.split('');
+  const removeWhitespace = line => line.split('').filter(char => whitespace.indexOf(char) === -1).join('');
+
+  const dataRegex = /@(-?)(\d+)/;
+  const operationRegex = /(([ADM]+)=)?([ADM&\|~01+\-]+|IN)?([!><]?=?)?(OUT|SWAP)?/;
 
   const jumpRules = {
     "!": () => null,
@@ -17,37 +20,42 @@ const getLowLevelMachine = () => {
 
   const validOpcodes = ["X", "Y", "X&Y", "X|Y", "~X", "~Y", "X+Y", "X-Y", "Y-X", "0", "-1", "1", "-X", "-Y", "X+1", "Y+1", "X-1", "Y-1"];
 
-  const execute = (i, line) => {
+  const execute = async (i, line) => {
+    line = removeWhitespace(line);
     if (!line) return i + 1;
     if (dataRegex.test(line)) {
       const [, sign, number] = dataRegex.exec(line);
       const value = parseInt(`${sign}${number}`);
       a = value;
+      updateMemory();
     } else if (operationRegex.test(line)) {
-      const [, operation, jump, out] = operationRegex.exec(line);
+      const [,, destination, operation, jump, flag] = operationRegex.exec(line);
       let operationResult = undefined;
       if (operation) {
-        const [left, right] = operation.split('=').map(side => side.split('').filter(char => char.trim()));
+        if (operation === 'IN') {
+          operationResult = await cin('Insert data', i == -1 ? '⮨' : `Line ${i}`); 
+        } else {
+          const X = d;
+          const Y = (operation.indexOf('M') != -1) ? m[a] : a;
 
-        const X = d;
-        const Y = (right.indexOf('M') != -1) ? m[a] : a;
-
-        const opcode = right.join('').replace('D', 'X').replace(/[AM]+/, 'Y');
-        if (validOpcodes.indexOf(opcode) != -1) {
-          eval(`operationResult = ${opcode}`);
+          const opcode = operation.replace('D', 'X').replace(/[AM]+/, 'Y');
+          if (validOpcodes.indexOf(opcode) != -1) {
+            eval(`operationResult = ${opcode}`);
+          }
         }
 
-        if (out && out === 'OUT') cout(operationResult, i == -1 ? '⮨' : `Line ${i}`);
+        if (flag && flag === 'OUT') cout(operationResult, i == -1 ? '⮨' : `Line ${i}`);
 
-        if (left.indexOf('M') != -1) m[a] = operationResult;
-        if (left.indexOf('A') != -1) a = operationResult;
-        if (left.indexOf('D') != -1) d = operationResult;
+        if (destination.indexOf('M') != -1) m[a] = operationResult;
+        if (destination.indexOf('A') != -1) a = operationResult;
+        if (destination.indexOf('D') != -1) d = operationResult;
       }
+      updateMemory();
       if (jump && operationResult !== undefined && jumpRules[jump](operationResult)) {
         return a;
       }
     } else {
-      console.log(line);
+      console.error(`Unknown syntax: ${line}`);
     }
     return i + 1;
   }

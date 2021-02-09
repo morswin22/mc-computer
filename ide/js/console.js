@@ -14,25 +14,22 @@ const cout = (message, location, classes = []) => {
 const cerr = (message, location) => cout(message, location, ['error']);
 
 let cinResolver = null;
-const cin = callback => {
-  new Promise(resolve => {
+const cin = async (message, location, classes) => {
+  cout(message, location, classes);
+  const value = await new Promise(resolve => {
     cinResolver = resolve;
-  }).then(value => {
-    cinResolver = null;
-    callback(value);
   });
+  cinResolver = null;
+  return value;
 };
 
 iconsoleinput.addEventListener('keydown', ({ key, target }) => {
   if (key === 'Enter') {
+    cout(target.value, 'Console');
     if (cinResolver) {
-      cinResolver(target.value);
+      cinResolver(parseInt(target.value));
     } else {
-      cout(target.value, 'Console');
-      if (currentMachine) {
-        currentMachine.execute(-1, target.value.toUpperCase());
-        currentMachine.updateMemory();
-      }
+      if (currentMachine) currentMachine.execute(-1, target.value.toUpperCase());
     }
     target.value = '';
   }
