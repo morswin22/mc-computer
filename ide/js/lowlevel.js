@@ -27,7 +27,7 @@ const getLowLevelMachine = () => {
       const [, sign, number] = dataRegex.exec(line);
       const value = parseInt(`${sign}${number}`);
       a = value;
-      updateMemory();
+      updateMemory(a, d, [m, a]);
     } else if (operationRegex.test(line)) {
       const [,, destination, operation, jump, flag] = operationRegex.exec(line);
       let operationResult = undefined;
@@ -50,7 +50,7 @@ const getLowLevelMachine = () => {
         if (destination.indexOf('A') != -1) a = operationResult;
         if (destination.indexOf('D') != -1) d = operationResult;
       }
-      updateMemory();
+      updateMemory(a, d, [m, a]);
       if (jump && operationResult !== undefined && jumpRules[jump](operationResult)) {
         return a;
       }
@@ -60,23 +60,8 @@ const getLowLevelMachine = () => {
     return i + 1;
   }
 
-  const {scalars: [aOut, dOut], vectors: [mOut]} = setupMemoryOutput(2, 1, ['Memory']);
+  const updateMemory = setupMemoryOutput(['A', 'D'], [['Memory', m.length]]);
+  updateMemory(a, d, [m, a]);
 
-  const updateMemory = () => {
-    aOut.innerText = `A → ${a}`;
-    dOut.innerText = `D → ${d}`;
-    mOut.innerHTML = '';
-    for (let i in m) {
-      const row = document.createElement('tr');
-      const index = document.createElement('td');
-      index.innerText = i;
-      const value = document.createElement('td');
-      value.innerText = `${i == a ? '☛' : '→'} ${m[i]}`;
-      row.append(index, value);
-      mOut.appendChild(row);
-    }
-  }
-
-  updateMemory();
-  return { execute, updateMemory };
+  return { execute };
 };

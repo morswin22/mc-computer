@@ -60,31 +60,53 @@ aside h1 {
   font-weight: normal;
 }
 
-#memory > * {
-  margin: 3rem 0;
-}
-
-#memory > *:first-child {
+#memory .table {
+  width: 100%;
+  border-collapse: collapse;
   margin: 0 0 3rem 0;
 }
 
-#memory > *:last-child {
-  margin: 3rem 0 0 0;
+#memory .table .row {
+  display: flex;
+  justify-content: space-evenly;
 }
 
-#memory .vectors td:nth-child(1) {
-  text-align: right;
-  padding-right: 0.5rem;
+#memory .table .row:nth-child(2n) {
+  color: #8287a0;
+  background-color: #0f111a;
 }
 
+#memory .table .row:nth-child(2n+1) {
+  border-bottom: 1px solid #2d324a;
+}
+
+#memory .table .column:first-child {
+  border-left: 1px solid #2d324a;
+}
+
+#memory .table .column {
+  border-right: 1px solid #2d324a;
+  text-align: center;
+  width: 100%;
+  padding: 0.3rem;
+}
+
+#memory .table .column.selected::before {
+  content: '> ';
+}
+
+#memory .table .column.selected::after {
+  content: ' <';
+}
+
+#memory .table .heading,
 .console h1 {
   margin: 3rem 0 0 0;
   padding: 0.8rem;
   border: 1px solid #2d324a;
-}
-
-#iconsole .error {
-  color: red;
+  font-weight: normal;
+  font-size: 1.5rem;
+  text-align: left;
 }
 
 #iconsole > div {
@@ -102,7 +124,13 @@ aside h1 {
 
 #iconsole > div > span:last-child {
   font-size: 1.2rem;
+  color: #8287a0;
 } 
+
+#iconsole .error,
+#iconsole .error span:last-child {
+  color: red;
+}
 
 #iconsoleinput {
   display: block;
