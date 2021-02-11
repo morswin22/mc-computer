@@ -129,7 +129,12 @@ aside h1 {
 
 #iconsole .error,
 #iconsole .error span:last-child {
-  color: red;
+  color: #ff0000;
+}
+
+#iconsole .warning,
+#iconsole .warning span:last-child {
+  color: #ffcf33;
 }
 
 #iconsoleinput {

@@ -53,3 +53,25 @@
 .cm-s-low-level .CodeMirror-activeline-background {
 	background: #07080c;
 }
+
+.CodeMirror-linenumber.CodeMirror-gutter-elt.touched:hover {
+	cursor: pointer;
+}
+
+.CodeMirror-linenumber.CodeMirror-gutter-elt.touched:hover::after {
+	opacity: 0.5;
+}
+
+.CodeMirror-linenumber.CodeMirror-gutter-elt.touched:hover::after,
+.CodeMirror-linenumber.CodeMirror-gutter-elt.marked::before {
+	content: ' ';
+	background-color: #ff0000;
+	display: block;
+	position: absolute;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	left: 30%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}

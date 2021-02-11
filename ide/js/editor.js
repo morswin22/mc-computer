@@ -14,7 +14,6 @@ CodeMirror.defineSimpleMode("low-level", {
 
 // Autorun Fibonacci sequence
 const code = CodeMirror(document.querySelector('.code'), {
-  value: "@2\nM = 1; out\nM = D + M; out\nD = M - D; >",
   mode:  "low-level",
   theme: "low-level",
   lineNumbers: true,
