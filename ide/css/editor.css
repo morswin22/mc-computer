@@ -1,6 +1,7 @@
 .cm-s-low-level.CodeMirror {
 	background: #0f111a;
 	color: #a6accda8;
+	height: 80vh;
 }
 
 .cm-s-low-level div.CodeMirror-selected {
@@ -18,10 +19,14 @@
 
 .cm-s-low-level .CodeMirror-gutters {
 	background: #0f111a;
-  border-right: 0;
+  border-right: 0;	
 }
 
 .cm-s-low-level .CodeMirror-linenumber {
+	color: #252836;
+}
+
+.cm-s-low-level .CodeMirror-activeline-gutter .CodeMirror-linenumber {
 	color: #4b526d;
 }
 
@@ -51,7 +56,7 @@
 }
 
 .cm-s-low-level .CodeMirror-activeline-background {
-	background: #07080c;
+	background: #0c0c14;
 }
 
 .CodeMirror-linenumber.CodeMirror-gutter-elt.touched:hover {
@@ -74,4 +79,8 @@
 	left: 30%;
 	top: 50%;
 	transform: translate(-50%, -50%);
+}
+
+.CodeMirror-overlayscroll-horizontal div, .CodeMirror-overlayscroll-vertical div {
+	background-color: #20222c;
 }

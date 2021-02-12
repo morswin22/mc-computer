@@ -8,7 +8,7 @@ const getExecutor = () => {
   let breakpointResolver = null;
 
   const loadLines = () => {
-    lines = code.getValue().toUpperCase().split('\n').map(line => line.trim());
+    lines = code.getValue().toUpperCase().split('\n').map(line => line.trim().split('#')[0]);
     lineNumber = 0;
     lineCounter = 0;
     return lines.length;

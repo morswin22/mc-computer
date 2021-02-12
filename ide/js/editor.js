@@ -18,4 +18,7 @@ const code = CodeMirror(document.querySelector('.code'), {
   theme: "low-level",
   lineNumbers: true,
   firstLineNumber: 0,
+  scrollbarStyle: "overlay",
+  lineWrapping: true,
+  styleActiveLine: true,
 });
