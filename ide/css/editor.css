@@ -1,7 +1,8 @@
 .cm-s-low-level.CodeMirror {
 	background: #0f111a;
 	color: #a6accda8;
-	height: 80vh;
+	/* Height has to deduct 10rem of neighbours in grid and 2*(2/3)*10vw of main's padding */
+	height: calc(100vh - 10rem - 6.6666vw); 
 }
 
 .cm-s-low-level div.CodeMirror-selected {

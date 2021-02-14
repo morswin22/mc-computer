@@ -12,10 +12,21 @@ body {
   width: 100vw;
   height: 100vh;
   display: grid;
-  grid-template-areas: "main aside";
-  grid-template-columns: 2fr 1fr;
+  grid-template-areas: 
+    "main"
+    "aside";
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
   background-color: #090b10;
   overflow-x: hidden;
+}
+
+@media (min-width: 600px) {
+  body {
+    grid-template-areas: "main aside";
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr;
+  }
 }
 
 main {
@@ -39,10 +50,6 @@ main select {
   color: #f0f0f0;
   background-color: #090b10;
   border: none;
-}
-
-main .code > div {
-  height: 100%;
 }
 
 aside {
@@ -101,7 +108,7 @@ aside h1 {
 
 #memory .table .heading,
 .console h1 {
-  margin: 3rem 0 0 0;
+  margin: 0;
   padding: 0.8rem;
   border: 1px solid #2d324a;
   font-weight: normal;
