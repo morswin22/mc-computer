@@ -18,6 +18,7 @@ body {
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr;
   background-color: #090b10;
+  color: #f0ffff;
   overflow-x: hidden;
 }
 
@@ -41,21 +42,66 @@ main section:first-child,
 main section:last-child {
   justify-self: center;
   align-self: center;
-  color: #f0f0f0;
+  color: #f0ffff;
 }
 
 main button, 
 main select {
   cursor: pointer;
-  color: #f0f0f0;
+  color: #f0ffff;
   background-color: #090b10;
   border: none;
+}
+
+main .control {
+  display: flex;
+  justify-content: space-around;
+}
+
+main .control button {
+  box-sizing: border-box;
+  appearance: none;
+  background-color: transparent;
+  border: 1px solid #2d324a;
+  border-radius: 0;
+  color: #f0ffff;
+  cursor: pointer;
+  display: flex;
+  align-self: center;
+  font-size: 1.3rem;
+  line-height: 1;
+  margin: 0 1.7rem;
+  padding: 0.6rem 1.3rem;
+  text-align: center;
+  font-weight: 700;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: color 150ms ease-in-out;
+}
+
+main .control button::after {
+  content: '';
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 100%;
+  background: #0f111a;
+  z-index: -1;
+  transition: width 150ms ease-in-out;
+}
+
+main .control button:hover::after {
+  width: 110%;
 }
 
 aside {
   grid-area: aside;
   font-size: 1.5rem;
-  color: #f0f0f0;
+  color: #f0ffff;
   padding: 10%;
 }
 
@@ -153,7 +199,7 @@ aside h1 {
   width: 100%;
   border: 1px solid #2d324a;
   box-sizing: border-box;
-  color: #f0f0f0;
+  color: #f0ffff;
   font-size: 1.5rem;
   padding: 0.3rem 0.5rem 0.3rem 0.5rem;
 }
