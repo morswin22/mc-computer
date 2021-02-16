@@ -12,28 +12,23 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.2/codemirror.min.css" integrity="sha512-MWdvo/Qqcf4pY1ecQUB1uBn0qLp19U/qJ1Rpp2BDZeuBA7YsFEwkvqR/+aG4BroPiAYDunKJ6X8R/Pmdt3p7oA==" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.2/addon/scroll/simplescrollbars.min.css" integrity="sha512-2y3NTsei81d5emn5nwrdflyI5EGULwKXRZ0BCbO55cjgQ8x62X4ydH/jbnzrKnxArstf79F9n6z1j2MtVmJ8YA==" crossorigin="anonymous" />
   <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/modal.css">
   <link rel="stylesheet" href="/css/editor.css">
 </head>
 <body>
 
   <main>
     <section class="options">
-      <label>
-        <span>Select language:</span>
-        <select id="language">
-          <option value="L">Low-level</option>
-          <option value="H">High-level</option>
-        </select>
-      </label>
+      <button class="btn" id="modalOpen">Settings</button>
     </section>
 
     <section class="code"></section>
 
     <section class="control">
-      <button id="run">Run</button>
-      <button id="step">Step</button>
-      <button id="next">Next</button>
-      <button id="reset">Reset</button>
+      <button class="btn" id="run">Run</button>
+      <button class="btn" id="step">Step</button>
+      <button class="btn" id="next">Next</button>
+      <button class="btn" id="reset">Reset</button>
     </section>
   </main>
   
@@ -50,6 +45,25 @@
     </section>
   </aside>
 
+  <div class="modal-wrapper close" id="modalBackground">
+    <div class="modal">
+      <button class="btn modal-close" id="modalClose">Close</button>
+      <h1>Settings</h1>
+      <label>
+        <span>Select language:</span>
+        <select id="language">
+          <option value="L">Low-level</option>
+          <option value="H">High-level</option>
+        </select>
+      </label>
+      <label>
+        <span>Max loop after</span>
+        <input type="number" id="maxLoop" value="20">
+      </label>
+    </div>
+  </div>
+
+  <script src="/js/modal.js"></script>
   <script src="/js/editor.js"></script>
   <script src="/js/memory.js"></script>
   <script src="/js/console.js"></script>

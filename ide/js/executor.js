@@ -1,11 +1,12 @@
 const getExecutor = () => {
-  const maxLoop = 20;
   const breakpoints = [];
   let lines = [];
   let lineNumber = 0;
   let lineCounter = 0;
   let breakpointHit = false;
   let breakpointResolver = null;
+  let maxLoopValue = Number(maxLoop.value);
+  maxLoop.addEventListener('input', () => maxLoopValue = parseInt(maxLoop.value));
 
   const loadLines = () => {
     lines = code.getValue().toUpperCase().split('\n').map(line => line.trim().split('#')[0]);
@@ -27,7 +28,7 @@ const getExecutor = () => {
       while (!isDone()) {
         await iterate();
         lineCounter += 1;
-        if (lineCounter === lines.length + maxLoop) {
+        if (lineCounter === lines.length + maxLoopValue) {
           cerr('Infinite loop protection', 'Runtime');
           break;
         }
@@ -62,7 +63,7 @@ const getExecutor = () => {
         }
         await iterate();
         lineCounter += 1;
-        if (lineCounter >= lines.length + maxLoop) {
+        if (lineCounter >= lines.length + maxLoopValue) {
           cerr('Infinite loop protection', 'Runtime');
           break;
         }

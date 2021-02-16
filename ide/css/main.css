@@ -58,7 +58,7 @@ main .control {
   justify-content: space-around;
 }
 
-main .control button {
+button.btn {
   box-sizing: border-box;
   appearance: none;
   background-color: transparent;
@@ -80,7 +80,7 @@ main .control button {
   transition: color 150ms ease-in-out;
 }
 
-main .control button::after {
+button.btn::after {
   content: '';
   position: absolute;
   display: block;
@@ -94,7 +94,7 @@ main .control button::after {
   transition: width 150ms ease-in-out;
 }
 
-main .control button:hover::after {
+button.btn:hover::after {
   width: 110%;
 }
 
