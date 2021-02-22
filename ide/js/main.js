@@ -10,3 +10,9 @@ reset.addEventListener("click", executor.reset);
 
 code.setValue("@2\nM = 1; out\nM = D + M; out\nD = M - D; >");
 run.click();
+
+const settings = getModal({ 
+  open: settingsOpen,
+  close: settingsClose,
+  background: settingsModal,
+});

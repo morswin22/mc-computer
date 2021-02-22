@@ -1,28 +1,25 @@
-const getModal = (element, initial) => {
+const getModal = ({ open: openElement, close: closeElement, background: backgroundElement }, initial) => {
   let isOpen = !initial;
 
   const open = () => {
     isOpen = true;
-    element.classList.remove('close');
+    backgroundElement.classList.remove('close');
   };
 
   const close = () => {
     isOpen = false;
-    element.classList.add('close');
+    backgroundElement.classList.add('close');
   };
 
   const set = state => state ? close() : open();
   const toggle = () => set(isOpen);
 
   set(isOpen);
+  openElement.addEventListener('click', open);
+  closeElement.addEventListener('click', close);
+  backgroundElement.addEventListener('click', ({ target }) => {
+    if (target === backgroundElement) close();
+  });
 
   return { open, close, toggle, set };
-}
-
-const modal = getModal(modalBackground, true);
-
-modalOpen.addEventListener('click', modal.open);
-modalBackground.addEventListener('click', ({ target }) => {
-  if (target === modalBackground) modal.close();
-});
-modalClose.addEventListener('click', modal.close);
+};

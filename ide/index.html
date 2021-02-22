@@ -19,7 +19,7 @@
 
   <main>
     <section class="options">
-      <button class="btn" id="modalOpen">Settings</button>
+      <button class="btn" id="settingsOpen">Settings</button>
     </section>
 
     <section class="code"></section>
@@ -45,21 +45,84 @@
     </section>
   </aside>
 
-  <div class="modal-wrapper close" id="modalBackground">
+  <div class="modal-wrapper close" id="settingsModal">
     <div class="modal">
-      <button class="btn modal-close" id="modalClose">Close</button>
+      <button class="btn modal-close" id="settingsClose">Close</button>
       <h1>Settings</h1>
-      <label>
-        <span>Select language:</span>
-        <select id="language">
-          <option value="L">Low-level</option>
-          <option value="H">High-level</option>
-        </select>
-      </label>
-      <label>
-        <span>Max loop after</span>
-        <input type="number" id="maxLoop" value="20">
-      </label>
+      <table>
+        <tr>
+          <td>Language</td>
+          <td>
+            <select id="language">
+              <option value="L">Low-level</option>
+              <option value="H">High-level</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Debug mode</td>
+          <td>
+            <label class="toggle">
+              <input type="checkbox" id="showBreakpoints">
+              <span></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>Max loop</td>
+          <td>
+            <input type="number" id="maxLoop" value="20">
+          </td>
+        </tr>
+      </table>
+      <h3>Machine</h3>
+      <table>
+        <tr>
+          <td>Bits</td>
+          <td>
+            <input type="number" id="compileBits" value="4">
+          </td>
+        </tr>
+        <tr>
+          <td>RAM size</td>
+          <td>
+            <input type="number" id="compileMemorySize" value="16">
+          </td>
+        </tr>
+        <tr>
+          <td>ROM switch</td>
+          <td>
+            <label class="toggle">
+              <input type="checkbox" id="compileWithSwitch" checked>
+              <span></span>
+            </label>
+          </td>
+        </tr>
+      </table>
+      <h3>Compile</h3>
+      <table>
+        <tr>
+          <td>x</td>
+          <td>
+            <input type="number" id="compileCoordinateX">
+          </td>
+        </tr>
+        <tr>
+          <td>y</td>
+          <td>
+            <input type="number" id="compileCoordinateY">
+          </td>
+        </tr>
+        <tr>
+          <td>z</td>
+          <td>
+            <input type="number" id="compileCoordinateZ">
+          </td>
+        </tr>
+      </table>
+      <button id="compileButton" class="btn">Compile</button>
+      <p id="compileOutput"></p>
+      <p class="reminder">Don't have a physical minecraft computer? <a target="blank" href="https://github.com/morswin22/mc-computer/">Download</a></p>
     </div>
   </div>
 

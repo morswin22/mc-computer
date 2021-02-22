@@ -98,6 +98,58 @@ button.btn:hover::after {
   width: 110%;
 }
 
+label.toggle {
+  width: 3rem;
+  height: 1.5rem;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0.1rem;
+  /* margin-bottom: -0.5rem; */
+}
+
+label.toggle span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #0f111a;
+  border-radius: 2rem;
+  transition: background-color 300ms ease;
+}
+
+label.toggle span::before {
+  position: absolute;
+  content: ' ';
+  width: 1rem;
+  height: 1rem;
+  background-color: #4a4e69;
+  border-radius: 50%;
+  left: .3rem;
+  top: .3rem;
+  -webkit-transition: left 300ms ease;
+  transition: left 300ms ease;
+}
+
+label.toggle input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  visibility: hidden;
+}
+
+label.toggle input:checked + span {
+  background-color: #ff9cac;
+}
+
+label.toggle input:checked + span::before {
+  left: 1.5rem;
+  background-color: #fff;
+}
+
 aside {
   grid-area: aside;
   font-size: 1.5rem;
