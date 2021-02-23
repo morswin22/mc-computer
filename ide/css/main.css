@@ -98,6 +98,10 @@ button.btn:hover::after {
   width: 110%;
 }
 
+#next.hide {
+  display: none!important;
+}
+
 label.toggle {
   width: 3rem;
   height: 1.5rem;
