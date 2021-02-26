@@ -70,7 +70,7 @@ const getLowLevelMachine = () => {
         }
       }
       updateMemory(a, d, [m, a]);
-      if (jump && operationResult !== undefined && jumpRules[jump](operationResult)) {
+      if (!errorOccured && jump && operationResult !== undefined && jumpRules[jump](operationResult)) {
         return a;
       }
     } else {
