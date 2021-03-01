@@ -1,6 +1,12 @@
 const getLowLevelMachine = () => {
+  const bits = parseInt(compileBits.value);
+  const size = 2 ** bits;
+  const type = compileDataType.value;
+  const rangeMin = type === 'int' ? -size/2 : type === 'uint' ? 0 : 0;
+  const rangeMax = type === 'int' ? size/2 - 1 : type === 'uint' ? size - 1 : 0;
+
   let a = 0, d = 0;
-  const m = Array(2**4).fill(0);
+  const m = Array(Math.min(Math.max(parseInt(compileMemorySize.value), 0), size)).fill(0);
 
   const whitespace = ' ,;'.split('');
   const removeWhitespace = line => line.split('').filter(char => whitespace.indexOf(char) === -1).join('');
@@ -23,6 +29,7 @@ const getLowLevelMachine = () => {
   const execute = async (i, line) => {
     line = removeWhitespace(line);
     if (!line) return i + 1;
+    let errorOccured = false;
     if (dataRegex.test(line)) {
       const [, sign, number] = dataRegex.exec(line);
       const value = parseInt(`${sign}${number}`);
@@ -44,11 +51,23 @@ const getLowLevelMachine = () => {
           }
         }
 
-        if (flag && flag === 'OUT') cout(operationResult, i == -1 ? '⮨' : `Line ${i}`);
+        if (operationResult > rangeMax) {
+          operationResult = rangeMin + operationResult - rangeMax;
+          cerr('Max data range exceeded', i == -1 ? '⮨' : `Line ${i}`);
+          errorOccured = true;
+        } else if (operationResult < rangeMin) {
+          operationResult = rangeMax - operationResult + rangeMin;
+          cerr('Min data range exceeded', i == -1 ? '⮨' : `Line ${i}`);
+          errorOccured = true;
+        }
 
-        if (destination.indexOf('M') != -1) m[a] = operationResult;
-        if (destination.indexOf('A') != -1) a = operationResult;
-        if (destination.indexOf('D') != -1) d = operationResult;
+        if (!errorOccured) {
+          if (flag && flag === 'OUT') cout(operationResult, i == -1 ? '⮨' : `Line ${i}`);
+  
+          if (destination.indexOf('M') != -1) m[a] = operationResult;
+          if (destination.indexOf('A') != -1) a = operationResult;
+          if (destination.indexOf('D') != -1) d = operationResult;
+        }
       }
       updateMemory(a, d, [m, a]);
       if (jump && operationResult !== undefined && jumpRules[jump](operationResult)) {
@@ -57,7 +76,7 @@ const getLowLevelMachine = () => {
     } else {
       console.error(`Unknown syntax: ${line}`);
     }
-    return i + 1;
+    return errorOccured ? false : i + 1;
   }
 
   const updateMemory = setupMemoryOutput(['A', 'D'], [['Memory', m.length]]);

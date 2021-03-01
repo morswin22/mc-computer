@@ -19,7 +19,9 @@ const getExecutor = () => {
   const isDone = () => lineNumber >= lines.length;
 
   const iterate = async () => {
-    lineNumber = await currentMachine.execute(lineNumber, lines[lineNumber]);
+    const response = await currentMachine.execute(lineNumber, lines[lineNumber]);
+    if (response === false) return true;
+    lineNumber = response;
   }
 
   const run = async () => {
@@ -27,7 +29,7 @@ const getExecutor = () => {
       cclear();
       currentMachine = machines[language.value]();
       while (!isDone()) {
-        await iterate();
+        if (await iterate()) break;
         lineCounter += 1;
         if (lineCounter === lines.length + maxLoopValue) {
           cerr('Infinite loop protection', 'Runtime');
@@ -63,7 +65,7 @@ const getExecutor = () => {
           if (breakpoints.indexOf(lineNumber) !== -1) {
             await breakpointRelease();
           }
-          await iterate();
+          if (await iterate()) break;
           lineCounter += 1;
           if (lineCounter >= lines.length + maxLoopValue) {
             cerr('Infinite loop protection', 'Runtime');

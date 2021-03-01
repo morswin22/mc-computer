@@ -71,12 +71,21 @@
         <tr>
           <td>Max loop</td>
           <td>
-            <input type="number" id="maxLoop" value="20">
+            <input type="number" id="maxLoop" value="200">
           </td>
         </tr>
       </table>
       <h3>Machine</h3>
       <table>
+        <tr>
+          <td>Data type</td>
+          <td>
+            <select id="compileDataType">
+              <option>uint</option>
+              <option>int</option>
+            </select>
+          </td>
+        </tr>
         <tr>
           <td>Bits</td>
           <td>
@@ -86,7 +95,7 @@
         <tr>
           <td>RAM size</td>
           <td>
-            <input type="number" id="compileMemorySize" value="16">
+            <input type="number" id="compileMemorySize" value="16" min="0" max="16">
           </td>
         </tr>
         <tr>
