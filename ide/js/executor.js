@@ -158,5 +158,18 @@ const getExecutor = () => {
     }
   });
 
+  code.on('beforeChange', (_, { origin, from, to, text, update, cancel }) => {
+    if (compileLineLimit.checked && origin !== 'setValue' && text && text.length > 1) {
+      const size = 2**compileBits.value;
+      const currentLength = code.getValue().split('\n').length;
+      if (currentLength <= size) {
+        update(from, to, text.slice(0, Math.max(0, size - currentLength + 1)));
+      } else {
+        cancel();
+        code.setValue(code.getValue().split('\n').slice(0, size).join('\n'));
+      }
+    }
+  });
+
   return { run, step, next, reset, toggleBreakpoint };
 }
