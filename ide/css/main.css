@@ -43,6 +43,8 @@ main section:last-child {
   justify-self: center;
   align-self: center;
   color: #f0ffff;
+  display: flex;
+  justify-content: space-around;
 }
 
 main button, 
@@ -51,11 +53,6 @@ main select {
   color: #f0ffff;
   background-color: #090b10;
   border: none;
-}
-
-main .control {
-  display: flex;
-  justify-content: space-around;
 }
 
 button.btn {
@@ -258,4 +255,45 @@ aside h1 {
   color: #f0ffff;
   font-size: 1.5rem;
   padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+}
+
+#tabs {
+  display: flex;
+}
+
+#tabs > div,
+#tabs::after {
+  box-sizing: border-box;
+  appearance: none;
+  background-color: transparent;
+  border: 1px solid #2d324a;
+  border-radius: 0;
+  color: #f0ffff;
+  cursor: pointer;
+  display: flex;
+  align-self: center;
+  font-size: 1.3rem;
+  line-height: 1;
+  padding: 0.6rem 1.3rem;
+  text-align: center;
+  font-weight: 700;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: background-color 150ms ease-in-out;
+}
+
+#tabs > div:hover,
+#tabs > div.open {
+  background-color: #0f111a;
+}
+
+#tabs > div {
+  border-right: 0;
+}
+
+#tabs::after {
+  content: '+';
+  font-size: 1.7rem;
+  padding: 0.4rem 1rem;
 }

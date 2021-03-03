@@ -17,11 +17,15 @@ compileBits.addEventListener("input", () => {
   compileMemorySize.value = Math.min(maxMemory, parseInt(compileMemorySize.value));
 });
 
-code.setValue("@2\nM = 1; out\nM = D + M; out\nD = M - D; >");
-run.click();
-
 const settings = getModal({ 
   open: settingsOpen,
   close: settingsClose,
   background: settingsModal,
 });
+
+const tabController = getTabs(tabs);
+if (tabController.isEmpty()) {
+  tabController.loadFromArray([['Fibonacci', '@2\nM = 1\nM = D + M; out\nD = D + M; >; out']]);
+  tabController.openTab(0);
+}
+run.click();
