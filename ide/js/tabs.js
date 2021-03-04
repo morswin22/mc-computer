@@ -1,6 +1,18 @@
 const getTabs = container => {
   const content = [];
   let opened = null;
+  let tooltipRef = null;
+  const tooltipElements = (() => {
+    const edit = document.createElement('span');
+    edit.innerText = '🖉';
+    edit.addEventListener('click', () => {});
+
+    const remove = document.createElement('span');
+    remove.innerText = '🗑';
+    remove.addEventListener('click', () => {});
+
+    return [edit, remove];
+  })();
 
   const empty = () => {
     opened = null;
@@ -16,7 +28,15 @@ const getTabs = container => {
       const element = document.createElement('div');
       element.setAttribute('tabindex', '0');
       element.innerText = array[i][0];
-      element.addEventListener('click', () => openTab(i));
+      element.addEventListener('click', ({ target }) => {
+        if (target.classList.contains('open')) {
+          hideTooltip(tooltipRef)
+          tooltipRef = showTooltip(target, tooltipElements);
+        } else {
+          openTab(i);
+        }
+      });
+      element.addEventListener('blur', () => blurTooltip(tooltipRef));
       container.appendChild(element);
     }
   }
