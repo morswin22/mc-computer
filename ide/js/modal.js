@@ -15,8 +15,8 @@ const getModal = ({ open: openElement, close: closeElement, background: backgrou
   const toggle = () => set(isOpen);
 
   set(isOpen);
-  openElement.addEventListener('click', open);
-  closeElement.addEventListener('click', close);
+  openElement?.addEventListener('click', open);
+  closeElement?.addEventListener('click', close);
   backgroundElement.addEventListener('click', ({ target }) => {
     if (target === backgroundElement) close();
   });
