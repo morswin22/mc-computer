@@ -1,15 +1,15 @@
-const getTabs = container => {
+const getTabs = (container, editModal, removeModal) => {
   const content = [];
   let opened = null;
   let tooltipRef = null;
   const tooltipElements = (() => {
     const edit = document.createElement('span');
     edit.innerText = '🖉';
-    edit.addEventListener('click', () => {});
+    edit.addEventListener('click', () => editModal.open());
 
     const remove = document.createElement('span');
     remove.innerText = '🗑';
-    remove.addEventListener('click', () => {});
+    remove.addEventListener('click', () => removeModal.open());
 
     return [edit, remove];
   })();

@@ -7,6 +7,9 @@
   background-color: #000000a0;
   z-index: 99999;
   padding: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal-wrapper.close {
@@ -21,6 +24,34 @@
   background-color: #090b10;
   box-sizing: border-box;
   padding: 3%;
+}
+
+.modal-small {
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+}
+
+.modal-small .btn {
+  margin: 0;
+}
+
+.modal-small label {
+  margin-bottom: 1rem;
+}
+
+.modal-small .btn-group {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 1rem;
+}
+
+.modal-small .btn.modal-close {
+  position: relative;
+  right: 0;
 }
 
 .modal h1 {

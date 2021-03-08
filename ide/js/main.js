@@ -23,7 +23,17 @@ const settings = getModal({
   background: settingsModal,
 });
 
-const tabController = getTabs(tabs);
+const changeName = getModal({
+  close: changeNameClose,
+  background: changeNameModal,
+});
+
+const removeTab = getModal({
+  close: removeClose,
+  background: removeModal,
+});
+
+const tabController = getTabs(tabs, changeName, removeTab);
 if (tabController.isEmpty()) {
   tabController.loadFromArray([['Fibonacci', '@2\nM = 1\nM = D + M; out\nD = D + M; >; out']]);
   tabController.openTab(0);
