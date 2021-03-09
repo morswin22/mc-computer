@@ -1,17 +1,17 @@
-const getTabs = (container, editModal, removeModal) => {
+const getTabs = (container, changeNameModal, removeModal) => {
   const content = [];
   let opened = null;
   let tooltipRef = null;
   const tooltipElements = (() => {
-    const edit = document.createElement('span');
-    edit.innerText = '🖉';
-    edit.addEventListener('click', () => editModal.open());
+    const changeName = document.createElement('span');
+    changeName.innerText = '🖉';
+    changeName.addEventListener('click', () => changeNameModal.open());
 
     const remove = document.createElement('span');
     remove.innerText = '🗑';
     remove.addEventListener('click', () => removeModal.open());
 
-    return [edit, remove];
+    return [changeName, remove];
   })();
 
   const empty = () => {
@@ -67,8 +67,22 @@ const getTabs = (container, editModal, removeModal) => {
     }
   };
 
+  const changeNameHandler = () => {
+    const name = changeNameInput.value;
+    changeNameInput.value = '';
+    changeNameModal.close();
+    if (opened !== null && content[opened] !== null) {
+      content[opened][0] = name;
+      container.querySelector(`div:nth-of-type(${+opened+1})`).innerText = name;
+      updateStorage();
+    }
+  };
+
   window.addEventListener('beforeunload', updateStorage);
   setInterval(updateStorage, 2000);
+
+  changeNameEnter.addEventListener('click', changeNameHandler);
+  changeNameInput.addEventListener('keydown', ({ key }) => key === 'Enter' ? changeNameHandler() : null);
 
   loadFromLocalStorage();
 
