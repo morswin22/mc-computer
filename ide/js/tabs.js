@@ -46,9 +46,14 @@ const getTabs = (container, changeNameModal, removeModal) => {
     if (data !== null) {
       const [lsOpened, lsContent] = JSON.parse(data);
       loadFromArray(lsContent);
-      openTab(lsOpened);
+      if (lsOpened !== null) openTab(lsOpened);
     }
   };
+
+  const loadDefault = () => {
+    loadFromArray([['Fibonacci', '@2\nM = 1\nM = D + M; out\nD = D + M; >; out']]);
+    openTab(0);
+  }
 
   const saveToLocalStorage = () => localStorage.setItem('mccomputer-tabs', JSON.stringify([opened, content]));
 
@@ -78,13 +83,31 @@ const getTabs = (container, changeNameModal, removeModal) => {
     }
   };
 
+  const removeHandler = () => {
+    removeModal.close();
+    if (opened !== null && content[opened] !== null) {
+      content.splice(opened, 1);
+      container.querySelector(`div:nth-of-type(${+opened+1})`)?.remove();
+      opened = null;
+      if (isEmpty()) {
+        loadDefault()
+      } else {
+        openTab(Math.max(opened, content.length - 1));
+      }
+      saveToLocalStorage();
+    }
+  };
+
   window.addEventListener('beforeunload', updateStorage);
   setInterval(updateStorage, 2000);
 
   changeNameEnter.addEventListener('click', changeNameHandler);
   changeNameInput.addEventListener('keydown', ({ key }) => key === 'Enter' ? changeNameHandler() : null);
 
-  loadFromLocalStorage();
+  removeEnter.addEventListener('click', removeHandler);
 
-  return { loadFromArray, loadFromLocalStorage, saveToLocalStorage, isEmpty, openTab };
+  loadFromLocalStorage();
+  if (isEmpty()) loadDefault();
+
+  return { loadDefault, loadFromArray, loadFromLocalStorage, saveToLocalStorage, isEmpty, openTab };
 };

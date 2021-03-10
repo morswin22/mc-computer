@@ -34,8 +34,4 @@ const removeTab = getModal({
 });
 
 const tabController = getTabs(tabs, changeName, removeTab);
-if (tabController.isEmpty()) {
-  tabController.loadFromArray([['Fibonacci', '@2\nM = 1\nM = D + M; out\nD = D + M; >; out']]);
-  tabController.openTab(0);
-}
 run.click();
