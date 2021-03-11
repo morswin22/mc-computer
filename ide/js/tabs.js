@@ -1,4 +1,4 @@
-const getTabs = (container, changeNameModal, removeModal) => {
+const getTabs = (container, changeNameModal, removeModal, addModal) => {
   const content = [];
   let opened = null;
   let tooltipRef = null;
@@ -92,11 +92,20 @@ const getTabs = (container, changeNameModal, removeModal) => {
       if (isEmpty()) {
         loadDefault()
       } else {
-        openTab(Math.max(opened, content.length - 1));
+        openTab(Math.min(opened, content.length - 1));
       }
       saveToLocalStorage();
     }
   };
+
+  const addHandler = () => {
+    const name = addInput.value;
+    addInput.value = '';
+    addTab.close();
+    content.push([name, '']);
+    saveToLocalStorage();
+    loadFromArray([...content]);
+  }
 
   window.addEventListener('beforeunload', updateStorage);
   setInterval(updateStorage, 2000);
@@ -105,6 +114,10 @@ const getTabs = (container, changeNameModal, removeModal) => {
   changeNameInput.addEventListener('keydown', ({ key }) => key === 'Enter' ? changeNameHandler() : null);
 
   removeEnter.addEventListener('click', removeHandler);
+
+  container.addEventListener('click', ({ target }) => target === container ? addTab.open() : null);
+  addEnter.addEventListener('click', addHandler);
+  addInput.addEventListener('keydown', ({ key }) => key === 'Enter' ? addHandler() : null);
 
   loadFromLocalStorage();
   if (isEmpty()) loadDefault();

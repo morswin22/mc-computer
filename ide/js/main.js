@@ -33,5 +33,10 @@ const removeTab = getModal({
   background: removeModal,
 });
 
-const tabController = getTabs(tabs, changeName, removeTab);
+const addTab = getModal({
+  close: addClose,
+  background: addModal,
+});
+
+const tabController = getTabs(tabs, changeName, removeTab, addTab);
 run.click();
