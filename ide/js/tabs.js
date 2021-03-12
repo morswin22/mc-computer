@@ -73,7 +73,8 @@ const getTabs = (container, changeNameModal, removeModal, addModal) => {
   };
 
   const changeNameHandler = () => {
-    const name = changeNameInput.value;
+    const name = changeNameInput.value.trim();
+    if (!name) return;
     changeNameInput.value = '';
     changeNameModal.close();
     if (opened !== null && content[opened] !== null) {
@@ -99,7 +100,8 @@ const getTabs = (container, changeNameModal, removeModal, addModal) => {
   };
 
   const addHandler = () => {
-    const name = addInput.value;
+    const name = addInput.value.trim();
+    if (!name) return;
     addInput.value = '';
     addTab.close();
     content.push([name, '']);
