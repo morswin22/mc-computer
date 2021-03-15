@@ -16,6 +16,13 @@ const getExecutor = () => {
     return lines.length;
   }
 
+  const compile = () => {
+    if (loadLines()) {
+      currentMachine = machines[language.value]();
+      compileOutput.innerText = currentMachine.compile(lines);
+    }
+  }
+
   const isDone = () => lineNumber >= lines.length;
 
   const iterate = async () => {
@@ -171,5 +178,5 @@ const getExecutor = () => {
     }
   });
 
-  return { run, step, next, reset, toggleBreakpoint };
+  return { compile, run, step, next, reset, toggleBreakpoint };
 }

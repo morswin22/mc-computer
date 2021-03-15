@@ -10,6 +10,7 @@ reset.addEventListener("click", executor.reset);
 compileBits.addEventListener("input", executor.reset);
 compileDataType.addEventListener("change", executor.reset);
 compileMemorySize.addEventListener("change", executor.reset);
+compileButton.addEventListener("click", executor.compile);
 
 compileBits.addEventListener("input", () => {
   const maxMemory = 2**parseInt(compileBits.value);
